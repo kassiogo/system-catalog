@@ -1,7 +1,9 @@
 package br.com.example.catsys.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -29,12 +31,12 @@ public class Application extends BaseEntityAudit {
     @Column(length = 600)
     private String sourceCodeLocationUrl;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name = "application_technology",
         joinColumns  = @JoinColumn(name = "application_id"),
         inverseJoinColumns = @JoinColumn(name = "technology_id"),
         foreignKey = @ForeignKey(name = "FK_ApplicationTechnology_Application"),
         inverseForeignKey = @ForeignKey(name = "FK_ApplicationTechnology_Technology"))
-    private Set<Technology> technologies;
+    private Set<Technology> technologies = new HashSet<>();
 }

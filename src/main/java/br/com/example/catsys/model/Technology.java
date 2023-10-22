@@ -1,8 +1,12 @@
 package br.com.example.catsys.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.example.catsys.enums.TechnologyTypeEnum;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,6 +31,7 @@ public class Technology extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TechnologyTypeEnum technologyType;
 
-    @ManyToMany(mappedBy = "technologies")
-    private Set<Application> applications;
+    @ManyToMany(mappedBy = "technologies", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private Set<Application> applications = new HashSet<>();
 }

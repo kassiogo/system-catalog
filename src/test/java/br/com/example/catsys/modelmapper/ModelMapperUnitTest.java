@@ -21,13 +21,12 @@ class ModelMapperUnitTest {
         this.mapper.getConfiguration()
             .setSkipNullEnabled(true)
             .setFieldAccessLevel(AccessLevel.PRIVATE);
-
-        this.applicationDTO = ApplicationDTO.builder()
-            .name("Catalog of Systems")
-            .abbreviationCode("syscat")
-            .description("This is a system's catalog")
-            .sourceCodeLocationUrl("https://site.com/repository.git")
-            .build();
+            
+        this.applicationDTO = new ApplicationDTO();
+        this.applicationDTO.setName("Catalog of Systems");
+        this.applicationDTO.setAbbreviationCode("syscat");
+        this.applicationDTO.setDescription("This is a system's catalog");
+        this.applicationDTO.setSourceCodeLocationUrl("https://site.com/repository.git");
     }
 
 

@@ -1,7 +1,11 @@
 package br.com.example.catsys.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +30,14 @@ public class TechnologyController {
         var technology = mapper.map(technologyDTO, Technology.class);
         technologyService.save(technology);
         return mapper.map(technology, TechnologyDTO.class);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TechnologyDTO>> findAll() {
+        var dtos = technologyService.findAll().stream()
+            .map(technology -> mapper.map(technology, TechnologyDTO.class))
+            .toList();
+
+        return ResponseEntity.ok(dtos);
     }
 }

@@ -1,5 +1,7 @@
 package br.com.example.catsys.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.com.example.catsys.model.Technology;
@@ -13,5 +15,9 @@ public class TechnologyService {
 
     public Technology save(Technology technology) {
         return technologyRepository.save(technology);
+    }
+
+    public List<Technology> findAll() {
+        return technologyRepository.findAll();
     }
 }
