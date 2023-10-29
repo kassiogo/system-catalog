@@ -28,7 +28,7 @@ public class TechnologyController {
     @ResponseStatus(HttpStatus.CREATED)
     public TechnologyDTO create(@RequestBody TechnologyDTO technologyDTO) {
         var technology = mapper.map(technologyDTO, Technology.class);
-        technologyService.save(technology);
+        technology = technologyService.save(technology);
         return mapper.map(technology, TechnologyDTO.class);
     }
 
@@ -37,7 +37,6 @@ public class TechnologyController {
         var dtos = technologyService.findAll().stream()
             .map(technology -> mapper.map(technology, TechnologyDTO.class))
             .toList();
-
         return ResponseEntity.ok(dtos);
     }
 }

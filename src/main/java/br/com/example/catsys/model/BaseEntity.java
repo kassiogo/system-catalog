@@ -1,13 +1,11 @@
 package br.com.example.catsys.model;
 
-import java.util.Objects;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,25 +15,33 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, updatable = false)
+    private String code;
+
+    
+    @PrePersist
+    private void generateCode() {
+        setCode(UUID.randomUUID().toString());
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseEntity that)) return false;
+        return Objects.equals(getCode(), that.getCode());
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getCode());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BaseEntity other = (BaseEntity) obj;
-        return Objects.equals(id, other.id);
+    public String toString() {
+        return "BaseEntity{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                '}';
     }
-
-    @Override
-	public String toString() {
-		return "BaseEntity [id=" + id + "]";
-	}
 }
