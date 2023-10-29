@@ -1,27 +1,24 @@
 package br.com.example.catsys.model;
 
+import br.com.example.catsys.enums.TechnologyTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.example.catsys.enums.TechnologyTypeEnum;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
+@Getter
+@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "technologies")
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class Technology extends BaseEntity {
-    @Column(nullable = false, length = 250)
+	@Column(nullable = false, length = 250)
     private String name;
 
     @Column(length = 500)
@@ -31,7 +28,11 @@ public class Technology extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TechnologyTypeEnum technologyType;
 
-    @ManyToMany(mappedBy = "technologies", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*
+    @ManyToMany(mappedBy = "technologies")
     @JsonIgnore
-    private Set<Application> applications = new HashSet<>();
+    @ToString.Exclude
+    private Set<Application> applications;
+
+     */
 }

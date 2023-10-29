@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.example.catsys.dto.application.ApplicationDTO;
+import br.com.example.catsys.dto.technology.TechnologyDTO;
 import br.com.example.catsys.model.Application;
 import br.com.example.catsys.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class ApplicationController {
             .map(application -> mapper.map(application, ApplicationDTO.class))
             .toList();
 
+    	
         return ResponseEntity.ok(dtos);
     }
 }

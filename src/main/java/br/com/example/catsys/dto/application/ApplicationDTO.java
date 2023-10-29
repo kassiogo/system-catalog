@@ -1,5 +1,6 @@
 package br.com.example.catsys.dto.application;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import br.com.example.catsys.dto.BaseDTO;
